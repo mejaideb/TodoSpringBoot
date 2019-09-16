@@ -3,12 +3,16 @@ package com.tavisca.workshops.todolist.com.tavisca.workshops.todolist;
 import java.util.ArrayList;
 import java.util.Iterator;
 import java.util.List;
+
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
 
 @Component
 public class TodoDao {
 	
+	@Autowired
+	ItemRepository itemRepository;
 	
 	TodoItem toDoList;
 	private int todoCount=3;
@@ -21,7 +25,7 @@ public class TodoDao {
 //		}
 //	
 	public List<TodoItem> findAll() {
-		return items; 
+		return itemRepository.findAll(); 
 	}
 	
 	public TodoItem save(TodoItem item){
@@ -57,7 +61,7 @@ public class TodoDao {
 		return null;
 	}
 	
-	public boolean updateItem(TodoItem itemToUpdate) {
+	public boolean updateItem(int id,TodoItem itemToUpdate) {
 		for (TodoItem item : items)
 		{
 			if(item.getId()==itemToUpdate.getId()) 

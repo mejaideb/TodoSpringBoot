@@ -49,8 +49,14 @@ public class TodoRestController {
 	}
 	
 	@PutMapping("/todo/{itemId}")
-	public void updateById(@PathVariable int itemId, @RequestBody TodoItem item) {
-		item.setId(itemId);
-		todoDao.updateItem(item);
+	public ResponseEntity<?> updateById(@PathVariable int itemId, @RequestBody TodoItem item) {
+		
+	    if(todoDao.updateItem(itemId,item))
+	                return new ResponseEntity<>(HttpStatus.OK) ;
+	               else
+	               return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
+//		item.setId(itemId);
+//		todoDao.updateItem(item);
 	}
 }

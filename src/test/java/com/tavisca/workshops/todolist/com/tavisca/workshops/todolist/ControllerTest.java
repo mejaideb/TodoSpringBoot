@@ -89,6 +89,8 @@ public class ControllerTest {
 	        
 	        List<TodoItem> list = new ArrayList<>();
 	        list.add(todoList);
+	        
+//	        Mockito.when(todoDao.save(todoList)).thenReturn(todoList);
 	        Mockito.when(todoDao.findAll()).thenReturn(list);
 	        
 	        String jsonRequest = mapper.writeValueAsString(todoList);
@@ -118,7 +120,7 @@ public class ControllerTest {
 	    @Test
 	    public void updateTodoItem() throws Exception {
 	    	TodoItem mockTodolist = new TodoItem(10, "do brush","doing brush is mandatory");
-	        Mockito.when(todoDao.updateItem(mockTodolist)).thenReturn(true);
+	        Mockito.when(todoDao.updateItem(Mockito.anyInt(),Mockito.any(TodoItem.class))).thenReturn(true);
 	        RequestBuilder requestBuilder= MockMvcRequestBuilders.put("/todo/10")
 	                                      .accept(MediaType.APPLICATION_JSON)
 	                                      .content(mapper.writeValueAsString(mockTodolist))
